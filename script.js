@@ -24,9 +24,12 @@ nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classLis
 let last=0,D=1;const links=[...document.querySelectorAll('nav a,.dots a')];
 const io=new IntersectionObserver(es=>es.forEach(e=>{
  const dir=D;
- if(e.isIntersecting){e.target.style.setProperty('--d',dir);e.target.classList.add('in');
-  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}
+ if(e.isIntersecting){e.target.style.setProperty('--d',dir);e.target.classList.add('in')}
  else{e.target.style.setProperty('--d',dir);e.target.classList.remove('in')}
-}),{root:main,threshold:.35});
-main.addEventListener('scroll',()=>{const y=main.scrollTop;if(y!==last)D=y>last?1:-1;last=y},{passive:true});
+}),{root:main,rootMargin:'-15% 0px -15% 0px',threshold:0});
+const secs=[...document.querySelectorAll('section')];
+function act(){const m=innerHeight/2;const s=secs.find(x=>{const r=x.getBoundingClientRect();return r.top<=m&&r.bottom>m});if(s)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+s.id))}
+main.addEventListener('scroll',()=>{const y=main.scrollTop;if(y!==last)D=y>last?1:-1;last=y;act()},{passive:true});
 document.querySelectorAll('section').forEach(s=>io.observe(s));
+
+act();
