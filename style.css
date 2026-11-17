@@ -126,3 +126,7 @@ footer{color:#55627a}
 .pcard h3{font-size:.8rem;margin:0}
 .pcard p{display:none}
 }
+
+/* Laptop/desktop: tetap 3 atas + 3 bawah */
+@media(min-width:621px){.prod{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:621px) and (max-height:820px){.prod{max-width:780px}.pimg{aspect-ratio:4/3}.pimg img{object-fit:cover}.pcard div:not(.pimg){padding:10px 16px 14px}}
